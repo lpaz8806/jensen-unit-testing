@@ -9,10 +9,11 @@ public class SchemaInformation {
 
     public SchemaInformation() {
         try {
+            Config config = Config.getInstance();
             db = DriverManager.getConnection(
-                    "jdbc:mariadb://localhost:3306/jensen_hr",
-                    "lpaz",
-                    "jensen"
+                    config.get("DB_CONNECTION"),
+                    config.get("DB_USER"),
+                    config.get("DB_PASS")
             );
         }
         catch(Exception e) {

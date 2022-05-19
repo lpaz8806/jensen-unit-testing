@@ -1,12 +1,13 @@
 package com.example.demo;
 
+import java.io.ObjectInputFilter;
+
 public class DemoApplication {
 
 	public static void main(String[] args) {
 		SchemaInformation info = new SchemaInformation();
-		try {
-			ForeignKeysList foreignKeys = info.getForeignKeys();
-			System.out.println(foreignKeys);
+		try	{
+			System.out.println(info.getPrimaryKeys());
 		} catch(Exception e) {
 			return;
 		} finally {
