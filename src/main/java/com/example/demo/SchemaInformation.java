@@ -4,6 +4,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Integer.max;
+import static java.lang.Integer.parseInt;
+
 public class SchemaInformation {
     private Connection db;
 
@@ -65,7 +68,26 @@ public class SchemaInformation {
         return new ForeignKeysList(list);
     }
 
-    public ColumnsTypesList getTypes() {
-        return null;
+    public ColumnsTypesList getTypes() throws SQLException {
+        Statement stmt = db.createStatement();
+        ResultSet rs = stmt.executeQuery("select * from jensen_hr_types");
+        List<ColumnType> list = new ArrayList<>();
+        while(rs.next()) {
+            ColumnType current = new ColumnType(
+                    new Column(rs.getString("table"),
+                            rs.getString("column")
+                    ),
+                    rs.getString("type"),
+                    parseMaxLength(rs.getString("max_length")),
+                    rs.getString("is_nullable").equals("YES")
+            );
+            list.add(current);
+        }
+
+        return new ColumnsTypesList(list);
+    }
+
+    private long parseMaxLength(String maxLength) {
+        return maxLength == null ? -1 : Long.parseLong(maxLength);
     }
 }

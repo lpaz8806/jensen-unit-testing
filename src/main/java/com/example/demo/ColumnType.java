@@ -1,14 +1,41 @@
 package com.example.demo;
 
-public class ColumnType extends Column {
+public class ColumnType {
+    private Column column;
     private String type;
-    private int maxLength;
-    private Boolean isNullable;
+    private long maxLength;
+    private Boolean _isNullable;
 
-    public ColumnType(String table, String column, String type, int maxLength, Boolean isNullable) {
-        super(table, column);
+    public ColumnType(Column column, String type, long maxLength, Boolean isNullable) {
+        this.column = column;
         this.type = type;
         this.maxLength = maxLength;
-        this.isNullable = isNullable;
+        this._isNullable = isNullable;
+    }
+
+    public Column getColumn() {
+        return column;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public long getMaxLength() {
+        return maxLength;
+    }
+
+    public Boolean isNullable() {
+        return _isNullable;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "%s.%s (%s, %s)\n",
+                column.getTable(), column.getColumn(),
+                type,
+                _isNullable? "NULL": "NOT NULL"
+        );
     }
 }

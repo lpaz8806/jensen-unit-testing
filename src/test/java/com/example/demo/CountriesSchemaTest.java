@@ -18,4 +18,18 @@ public class CountriesSchemaTest {
         Column column = info.getPrimaryKeys().find("countries", "id");
         Assertions.assertNotNull(column);
     }
+
+    @Test
+    public void nameIsString() throws SQLException {
+        ColumnType column = info.getTypes().findByColumn("countries", "name");
+        Assertions.assertNotNull(column);
+        Assertions.assertEquals(column.getType(), "varchar");
+    }
+
+    @Test
+    public void nameIsAtMost40CharactersLong() throws SQLException {
+        ColumnType column = info.getTypes().findByColumn("countries", "name");
+        Assertions.assertNotNull(column);
+        Assertions.assertEquals(40, column.getMaxLength());
+    }
 }

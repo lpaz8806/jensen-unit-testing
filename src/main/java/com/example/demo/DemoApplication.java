@@ -1,15 +1,17 @@
 package com.example.demo;
 
-import java.io.ObjectInputFilter;
-
 public class DemoApplication {
 
 	public static void main(String[] args) {
 		SchemaInformation info = new SchemaInformation();
 		try	{
-			System.out.println(info.getPrimaryKeys());
+			ColumnsTypesList types = info.getTypes();
+			Column countryNameCol = new Column("countries", "name");
+			System.out.println(countryNameCol);
+			ColumnType countryNameType = types.findByColumn(countryNameCol);
+			System.out.println(countryNameType);
 		} catch(Exception e) {
-			return;
+			System.out.println(e.getMessage());
 		} finally {
 			info.close();
 		}
