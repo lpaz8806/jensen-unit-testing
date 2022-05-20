@@ -10,14 +10,14 @@ public class ActorsSchemaTest {
     private SchemaInformation info = new SchemaInformation();
     @Test
     public void nameIsString() throws SQLException {
-        ColumnType column = info.getTypes().findByColumn("countries", "name");
+        ColumnType column = info.getTypes().findByColumn("actors", "first_name");
         Assertions.assertNotNull(column);
         Assertions.assertEquals(column.getType(), "varchar");
     }
 
     @Test
     public void nameIsAtMost40CharactersLong() throws SQLException {
-        ColumnType column = info.getTypes().findByColumn("countries", "name");
+        ColumnType column = info.getTypes().findByColumn("actors", "first_name");
         Assertions.assertNotNull(column);
         Assertions.assertEquals(40, column.getMaxLength());
     }
@@ -32,6 +32,13 @@ public class ActorsSchemaTest {
         ColumnType column = info.getTypes().findByColumn("actors", "first_name");
         Assertions.assertNotNull(column);
         Assertions.assertEquals(column.getType(), "varchar");
+    }
+
+    @Test
+    public void genderIsString() throws SQLException {
+        ColumnType column = info.getTypes().findByColumn("actors", "gender");
+        Assertions.assertNotNull(column);
+        Assertions.assertEquals("char",column.getType());
     }
 }
 
