@@ -6,7 +6,7 @@ public class DemoApplication {
 		SchemaInformation info = new SchemaInformation();
 		try	{
 			ColumnsTypesList types = info.getTypes();
-			Column countryNameCol = new Column("countries", "name");
+			Column countryNameCol = new Column("actors", "first_name");
 			System.out.println(countryNameCol);
 			ColumnType countryNameType = types.findByColumn(countryNameCol);
 			System.out.println(countryNameType);

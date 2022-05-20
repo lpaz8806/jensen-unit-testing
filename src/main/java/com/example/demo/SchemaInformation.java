@@ -9,10 +9,13 @@ import static java.lang.Integer.parseInt;
 
 public class SchemaInformation {
     private Connection db;
+    private String dbName;
 
     public SchemaInformation() {
         try {
             Config config = Config.getInstance();
+            dbName = config.get("DB_NAME");
+            System.out.println("db name = " + dbName);
             db = DriverManager.getConnection(
                     config.get("DB_CONNECTION"),
                     config.get("DB_USER"),
@@ -34,8 +37,7 @@ public class SchemaInformation {
     }
 
     public ColumnsList getPrimaryKeys() throws SQLException {
-        Statement stmt = db.createStatement();
-        ResultSet rs = stmt.executeQuery("select * from jensen_hr_pk");
+        ResultSet rs = executeQuery("SELECT * FROM %s_pk", dbName);
         List<Column> list = new ArrayList<>();
         while(rs.next()) {
             Column current = new Column(
@@ -48,8 +50,7 @@ public class SchemaInformation {
     }
 
     public ForeignKeysList getForeignKeys() throws SQLException {
-        Statement stmt = db.createStatement();
-        ResultSet rs = stmt.executeQuery("select * from jensen_hr_fk");
+        ResultSet rs = executeQuery("select * from %s_fk", dbName);
         List<ForeignKey> list = new ArrayList<>();
         while(rs.next()) {
             ForeignKey current = new ForeignKey(
@@ -69,8 +70,7 @@ public class SchemaInformation {
     }
 
     public ColumnsTypesList getTypes() throws SQLException {
-        Statement stmt = db.createStatement();
-        ResultSet rs = stmt.executeQuery("select * from jensen_hr_types");
+        ResultSet rs = executeQuery("select * from %s_types", dbName);
         List<ColumnType> list = new ArrayList<>();
         while(rs.next()) {
             ColumnType current = new ColumnType(
@@ -87,6 +87,11 @@ public class SchemaInformation {
         return new ColumnsTypesList(list);
     }
 
+    private ResultSet executeQuery(String query, String... params) throws SQLException {
+        Statement stmt = db.createStatement();
+        ResultSet rs = stmt.executeQuery(String.format(query, params));
+        return rs;
+    }
     private long parseMaxLength(String maxLength) {
         return maxLength == null ? -1 : Long.parseLong(maxLength);
     }
