@@ -8,7 +8,19 @@ import java.sql.SQLException;
 public class ActorsSchemaTest {
 
     private SchemaInformation info = new SchemaInformation();
+    @Test
+    public void nameIsString() throws SQLException {
+        ColumnType column = info.getTypes().findByColumn("countries", "name");
+        Assertions.assertNotNull(column);
+        Assertions.assertEquals(column.getType(), "varchar");
+    }
 
+    @Test
+    public void nameIsAtMost40CharactersLong() throws SQLException {
+        ColumnType column = info.getTypes().findByColumn("countries", "name");
+        Assertions.assertNotNull(column);
+        Assertions.assertEquals(40, column.getMaxLength());
+    }
     @Test
     public void tableHasPrimaryKey() throws SQLException {
         ColumnsList columns = info.getPrimaryKeys().filterByTableName("actors");
