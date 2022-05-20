@@ -19,7 +19,7 @@ public class ActorsSchemaTest {
     public void nameIsAtMost40CharactersLong() throws SQLException {
         ColumnType column = info.getTypes().findByColumn("actors", "first_name");
         Assertions.assertNotNull(column);
-        Assertions.assertEquals(40, column.getMaxLength());
+        Assertions.assertEquals(50, column.getMaxLength());
     }
     @Test
     public void tableHasPrimaryKey() throws SQLException {
