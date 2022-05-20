@@ -23,10 +23,10 @@ public class MoviesSchemaTest {
     }
 
     @Test
-    public void nameIsString() throws SQLException {
+    public void titleIsString() throws SQLException {
         ColumnType column = info.getTypes().findByColumn("movies", "title");
         Assertions.assertNotNull(column);
-        Assertions.assertEquals(column.getType(), "varchar");
+        Assertions.assertEquals("varchar",column.getType());
     }
 
     @Test
@@ -48,5 +48,19 @@ public class MoviesSchemaTest {
         ForeignKeysList foreignKeysList = info.getForeignKeys().filterByChildTable("movies").filterByParentTable("directors");
         Assertions.assertNotNull(foreignKeysList);
     }
-}
+    @Test
+    public void id_directorIsInt() throws SQLException {
+        ColumnType column = info.getTypes().findByColumn("movies", "id_director");
+        Assertions.assertNotNull(column);
+        Assertions.assertEquals("int", column.getType());
+    }
+
+        @Test
+        public void release_dateIsDate() throws SQLException {
+            ColumnType column = info.getTypes().findByColumn("movies", "release_date");
+            Assertions.assertNotNull(column);
+            Assertions.assertEquals("date",column.getType());
+        }
+    }
+
 
