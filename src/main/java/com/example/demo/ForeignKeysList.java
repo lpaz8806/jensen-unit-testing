@@ -28,7 +28,15 @@ public class ForeignKeysList {
         }
         return null;
     }
-
+    public ForeignKeysList filterByParentTable(String tableName) {
+        List<ForeignKey> list = new ArrayList<>();
+        for (ForeignKey foreignKey: foreignKeys) {
+            if (foreignKey.getParentColumn().getTable().equals(tableName)) {
+                list.add(foreignKey);
+            }
+        }
+        return new ForeignKeysList(list);
+    }
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();

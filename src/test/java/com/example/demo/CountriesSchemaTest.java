@@ -33,3 +33,4 @@ public class CountriesSchemaTest {
         Assertions.assertEquals(40, column.getMaxLength());
     }
 }
+//type of column c is T
