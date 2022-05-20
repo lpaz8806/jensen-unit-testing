@@ -9,6 +9,17 @@ public class ActorsSchemaTest {
 
     private SchemaInformation info = new SchemaInformation();
 
+    @Test
+    public void tableHasPrimaryKey() throws SQLException {
+        ColumnsList columns = info.getPrimaryKeys().filterByTableName("actors");
+        Assertions.assertEquals(1, columns.count());
+    }
 
+    @Test
+    public void firstNameIsString() throws SQLException {
+        ColumnType column = info.getTypes().findByColumn("actors", "first_name");
+        Assertions.assertNotNull(column);
+        Assertions.assertEquals(column.getType(), "varchar");
+    }
 }
 
