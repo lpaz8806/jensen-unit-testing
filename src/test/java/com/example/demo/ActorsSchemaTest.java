@@ -14,4 +14,11 @@ public class ActorsSchemaTest {
         ColumnsList columns = info.getPrimaryKeys().filterByTableName("actors");
         Assertions.assertEquals(1,columns.count());
     }
+
+    @Test
+    public void checkDateOfBirth() throws SQLException {
+        ColumnType column = info.getTypes().findByColumn("actors", "born_on");
+        Assertions.assertNotNull(column);
+    }
 }
+
