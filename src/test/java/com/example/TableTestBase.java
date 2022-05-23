@@ -13,8 +13,15 @@ public abstract class TableTestBase {
         this(
                 Config.getInstance().get("DB_CONNECTION"),
                 Config.getInstance().get("DB_USER"),
-                Config.getInstance().get("DB_CONNECTION")
+                Config.getInstance().get("DB_PASS")
         );
+    }
+    protected TableTestBase(String connectionString) throws SQLException {
+        this.info = new SchemaInformation(DriverManager.getConnection(
+                connectionString,
+                Config.getInstance().get("DB_USER"),
+                Config.getInstance().get("DB_PASS")
+        ));
     }
     protected TableTestBase(String connectionString, String user, String pass) throws SQLException {
         this.info = new SchemaInformation(DriverManager.getConnection(
