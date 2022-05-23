@@ -23,7 +23,7 @@ public class DirectorsSchemaTest {
     public void nameIsString() throws SQLException {
         ColumnType column = info.getTypes().findByColumn("directors", "first_name");
         Assertions.assertNotNull(column);
-        Assertions.assertEquals(column.getType(), "varchar");
+        Assertions.assertEquals("varchar", column.getType());
     }
     @Test
     public void nameIsAtMost50CharactersLong() throws SQLException {
