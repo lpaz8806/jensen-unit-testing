@@ -1,10 +1,7 @@
 package com.example.jensen_hr.demo;
 
 import com.example.TableTestBase;
-import com.example.demo.Column;
-import com.example.demo.ColumnType;
-import com.example.demo.ColumnsList;
-import com.example.demo.Config;
+import com.example.demo.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -38,5 +35,49 @@ public class DepartmentsSchemaTest extends TableTestBase {
         ColumnType column = info.getTypes().findByColumn("departments", "name");
         Assertions.assertNotNull(column);
         Assertions.assertEquals(30, column.getMaxLength());
+    }
+    @Test
+    public void foreignKeyExists() throws SQLException {
+        ForeignKeysList foreignKeysList = info.getForeignKeys().filterByChildTable("departments");
+        Assertions.assertTrue(foreignKeysList.count() > 0);
+    }
+
+    @Test
+    public void foreignKeyExistsBetweenDepartments_Locations() throws SQLException {
+        ForeignKeysList foreignKeysList = info
+                .getForeignKeys()
+                .filterByChildTable("departments")
+                .filterByParentTable("locations");
+
+        Assertions.assertNotNull(foreignKeysList);
+    }
+
+    @Test
+    public void idLocationReferencesCountries() throws SQLException {
+        ForeignKey fkIdDirector = info
+                .getForeignKeys()
+                .findByChildColumn(new Column("departments", "id_location"));
+
+        Assertions.assertNotNull(fkIdDirector);
+        Assertions.assertTrue(fkIdDirector
+                .getParentColumn()
+                .equals(new Column("locations", "id"))
+        );
+    }
+
+    @Test
+    public void foreignKeyUsesTheNamingConvention() throws SQLException {
+        ForeignKey fkIdDirector = info
+                .getForeignKeys()
+                .findByChildColumn(new Column("movies", "id_director"));
+
+        Assertions.assertNotNull(fkIdDirector);
+        Assertions.assertTrue(fkIdDirector
+                .getName()
+                .equals("fk__%s__%s".formatted(
+                        fkIdDirector.getChildColumn().getTable(),
+                        fkIdDirector.getParentColumn().getTable()
+                ))
+        );
     }
 }
