@@ -24,7 +24,7 @@ public class ReviewersSchemaTest{
     public void nameIsString() throws SQLException {
         ColumnType column = info.getTypes().findByColumn("reviewers", "name");
         Assertions.assertNotNull(column);
-        Assertions.assertEquals(column.getType(), "varchar");
+        Assertions.assertEquals("varchar", column.getType());
     }
 
     @Test
