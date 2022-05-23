@@ -40,5 +40,11 @@ public class ActorsSchemaTest {
         Assertions.assertNotNull(column);
         Assertions.assertEquals("char",column.getType());
     }
+
+    @Test
+    public void columnBornOnExists() throws SQLException {
+        ColumnType column = info.getTypes().findByColumn("actors", "born_on");
+        Assertions.assertNotNull(column);
+    }
 }
 
