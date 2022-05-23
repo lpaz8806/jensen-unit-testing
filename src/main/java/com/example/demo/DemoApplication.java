@@ -5,11 +5,11 @@ public class DemoApplication {
 	public static void main(String[] args) {
 		SchemaInformation info = new SchemaInformation();
 		try	{
-			ColumnsTypesList types = info.getTypes()
-			Column countryNameCol = new Column("actors", "first_name")
-			System.out.println(countryNameCol)
-			ColumnType countryNameType = types.findByColumn(countryNameCol)
-			System.out.println(countryNameType)
+			ColumnsTypesList types = info.getTypes();
+			Column countryNameCol = new Column("actors", "first_name");
+			System.out.println(countryNameCol);
+			ColumnType countryNameType = types.findByColumn(countryNameCol);
+			System.out.println(countryNameType);
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		} finally {
