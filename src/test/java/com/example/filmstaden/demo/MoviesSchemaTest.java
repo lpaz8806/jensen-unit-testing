@@ -1,7 +1,8 @@
 
 
-package com.example.demo;
+package com.example.filmstaden.demo;
 
+import com.example.demo.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

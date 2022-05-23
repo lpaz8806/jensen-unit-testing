@@ -1,5 +1,9 @@
-package com.example.demo;
+package com.example.filmstaden.demo;
 
+import com.example.demo.Column;
+import com.example.demo.ColumnType;
+import com.example.demo.ColumnsList;
+import com.example.demo.SchemaInformation;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

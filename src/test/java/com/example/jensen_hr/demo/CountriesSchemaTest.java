@@ -1,12 +1,22 @@
-package com.example.demo;
+package com.example.jensen_hr.demo;
 
+import com.example.TableTestBase;
+import com.example.demo.Column;
+import com.example.demo.ColumnType;
+import com.example.demo.ColumnsList;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 
-public class CountriesSchemaTest {
-    private SchemaInformation info = new SchemaInformation();
+public class CountriesSchemaTest extends TableTestBase {
+    public CountriesSchemaTest() throws SQLException {
+        super(
+                "jdbc:mariadb://localhost:3306/jensen_hr",
+                "lpaz",
+                "jensen"
+        );
+    }
 
     @Test
     public void tableHasPrimaryKey() throws SQLException {
