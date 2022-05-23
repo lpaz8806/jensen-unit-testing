@@ -26,6 +26,7 @@ public class JobsSchemaTest extends TableTestBase {
         Column column = info.getPrimaryKeys().find("jobs", "id");
         Assertions.assertNotNull(column);
     }
+
     @Test
     public void nameIsString() throws SQLException {
         ColumnType column = info.getTypes().findByColumn("jobs", "name");

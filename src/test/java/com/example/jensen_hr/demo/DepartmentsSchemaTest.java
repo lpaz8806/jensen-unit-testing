@@ -36,6 +36,7 @@ public class DepartmentsSchemaTest extends TableTestBase {
         Assertions.assertNotNull(column);
         Assertions.assertEquals(30, column.getMaxLength());
     }
+
     @Test
     public void foreignKeyExists() throws SQLException {
         ForeignKeysList foreignKeysList = info.getForeignKeys().filterByChildTable("departments");
@@ -53,13 +54,13 @@ public class DepartmentsSchemaTest extends TableTestBase {
     }
 
     @Test
-    public void idLocationReferencesCountries() throws SQLException {
-        ForeignKey fkIdDirector = info
+    public void idLocationReferencesLocations() throws SQLException {
+        ForeignKey fkIdLocations = info
                 .getForeignKeys()
                 .findByChildColumn(new Column("departments", "id_location"));
 
-        Assertions.assertNotNull(fkIdDirector);
-        Assertions.assertTrue(fkIdDirector
+        Assertions.assertNotNull(fkIdLocations);
+        Assertions.assertTrue(fkIdLocations
                 .getParentColumn()
                 .equals(new Column("locations", "id"))
         );
@@ -67,16 +68,16 @@ public class DepartmentsSchemaTest extends TableTestBase {
 
     @Test
     public void foreignKeyUsesTheNamingConvention() throws SQLException {
-        ForeignKey fkIdDirector = info
+        ForeignKey fkIdLocations = info
                 .getForeignKeys()
-                .findByChildColumn(new Column("movies", "id_director"));
+                .findByChildColumn(new Column("departments", "id_location"));
 
-        Assertions.assertNotNull(fkIdDirector);
-        Assertions.assertTrue(fkIdDirector
+        Assertions.assertNotNull(fkIdLocations);
+        Assertions.assertTrue(fkIdLocations
                 .getName()
                 .equals("fk__%s__%s".formatted(
-                        fkIdDirector.getChildColumn().getTable(),
-                        fkIdDirector.getParentColumn().getTable()
+                        fkIdLocations.getChildColumn().getTable(),
+                        fkIdLocations.getParentColumn().getTable()
                 ))
         );
     }
