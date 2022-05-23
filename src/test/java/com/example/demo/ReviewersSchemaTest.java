@@ -28,9 +28,9 @@ public class ReviewersSchemaTest{
     }
 
     @Test
-    public void nameIsAtMost40CharactersLong() throws SQLException {
+    public void nameIsAtMost50CharactersLong() throws SQLException {
         ColumnType column = info.getTypes().findByColumn("reviewers", "name");
         Assertions.assertNotNull(column);
-        Assertions.assertEquals(45, column.getMaxLength());
+        Assertions.assertEquals(50, column.getMaxLength());
     }
 }
