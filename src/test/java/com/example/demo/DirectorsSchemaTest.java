@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import java.sql.SQLException;
 
 public class DirectorsSchemaTest {
-    //test
     private SchemaInformation info = new SchemaInformation();
 
     @Test
