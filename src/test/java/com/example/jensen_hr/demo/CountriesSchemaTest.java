@@ -13,8 +13,8 @@ public class CountriesSchemaTest extends TableTestBase {
     public CountriesSchemaTest() throws SQLException {
         super(
                 "jdbc:mariadb://localhost:3306/jensen_hr",
-                "lpaz",
-                "jensen"
+                "root",
+                "Jutt1234"
         );
     }
 
