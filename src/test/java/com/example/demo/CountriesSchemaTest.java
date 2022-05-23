@@ -11,7 +11,7 @@ public class CountriesSchemaTest {
     @Test
     public void tableHasPrimaryKey() throws SQLException {
         ColumnsList columns = info.getPrimaryKeys().filterByTableName("countries");
-        Assertions.assertEquals(columns.count(), 1);
+        Assertions.assertEquals(1, columns.count());
     }
     @Test
     public void primaryKeyIsCalledId() throws SQLException {
@@ -23,7 +23,7 @@ public class CountriesSchemaTest {
     public void nameIsString() throws SQLException {
         ColumnType column = info.getTypes().findByColumn("countries", "name");
         Assertions.assertNotNull(column);
-        Assertions.assertEquals(column.getType(), "varchar");
+        Assertions.assertEquals("varchar", column.getType());
     }
 
     @Test
