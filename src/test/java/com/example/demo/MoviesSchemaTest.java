@@ -26,7 +26,7 @@ public class MoviesSchemaTest {
     public void titleIsString() throws SQLException {
         ColumnType column = info.getTypes().findByColumn("movies", "title");
         Assertions.assertNotNull(column);
-        Assertions.assertEquals("varchar",column.getType());
+        Assertions.assertEquals("varchar", column.getType());
     }
 
     @Test
@@ -52,6 +52,7 @@ public class MoviesSchemaTest {
 
         Assertions.assertNotNull(foreignKeysList);
     }
+
     @Test
     public void idDirectorReferencesDirectors() throws SQLException {
         ForeignKey fkIdDirector = info
@@ -64,6 +65,7 @@ public class MoviesSchemaTest {
                 .equals(new Column("directors", "id"))
         );
     }
+
     @Test
     public void foreignKeyUsesTheNamingConvention() throws SQLException {
         ForeignKey fkIdDirector = info
@@ -87,12 +89,12 @@ public class MoviesSchemaTest {
         Assertions.assertEquals("int", column.getType());
     }
 
-        @Test
-        public void release_dateIsDate() throws SQLException {
-            ColumnType column = info.getTypes().findByColumn("movies", "release_date");
-            Assertions.assertNotNull(column);
-            Assertions.assertEquals("date",column.getType());
-        }
+    @Test
+    public void release_dateIsDate() throws SQLException {
+        ColumnType column = info.getTypes().findByColumn("movies", "release_date");
+        Assertions.assertNotNull(column);
+        Assertions.assertEquals("date", column.getType());
     }
+}
 
 
