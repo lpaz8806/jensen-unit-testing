@@ -12,7 +12,7 @@ public class ReviewersSchemaTest{
     @Test
     public void tableHasPrimaryKey() throws SQLException {
         ColumnsList columns = info.getPrimaryKeys().filterByTableName("reviewers");
-        Assertions.assertEquals(columns.count(), 1);
+        Assertions.assertEquals(1, columns.count());
     }
     @Test
     public void primaryKeyIsCalledId() throws SQLException {
