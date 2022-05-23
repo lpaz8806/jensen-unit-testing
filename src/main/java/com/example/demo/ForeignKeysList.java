@@ -11,7 +11,7 @@ public class ForeignKeysList {
     }
 
     public int count() { return foreignKeys.size(); }
-    
+
     public ForeignKeysList filterByChildTable(String tableName) {
         List<ForeignKey> list = new ArrayList<>();
         for (ForeignKey foreignKey: foreignKeys) {

@@ -40,14 +40,46 @@ public class MoviesSchemaTest {
     @Test
     public void foreignKeyExists() throws SQLException {
         ForeignKeysList foreignKeysList = info.getForeignKeys().filterByChildTable("movies");
-        Assertions.assertNotNull(foreignKeysList);
+        Assertions.assertTrue(foreignKeysList.count() > 0);
     }
 
     @Test
     public void foreignKeyExistsBetweenMovies_Directors() throws SQLException {
-        ForeignKeysList foreignKeysList = info.getForeignKeys().filterByChildTable("movies").filterByParentTable("directors");
+        ForeignKeysList foreignKeysList = info
+                .getForeignKeys()
+                .filterByChildTable("movies")
+                .filterByParentTable("directors");
+
         Assertions.assertNotNull(foreignKeysList);
     }
+    @Test
+    public void idDirectorReferencesDirectors() throws SQLException {
+        ForeignKey fkIdDirector = info
+                .getForeignKeys()
+                .findByChildColumn(new Column("movies", "id_director"));
+
+        Assertions.assertNotNull(fkIdDirector);
+        Assertions.assertTrue(fkIdDirector
+                .getParentColumn()
+                .equals(new Column("directors", "id"))
+        );
+    }
+    @Test
+    public void foreignKeyUsesTheNamingConvention() throws SQLException {
+        ForeignKey fkIdDirector = info
+                .getForeignKeys()
+                .findByChildColumn(new Column("movies", "id_director"));
+
+        Assertions.assertNotNull(fkIdDirector);
+        Assertions.assertTrue(fkIdDirector
+                .getName()
+                .equals("fk__%s__%s".formatted(
+                        fkIdDirector.getChildColumn().getTable(),
+                        fkIdDirector.getParentColumn().getTable()
+                ))
+        );
+    }
+
     @Test
     public void id_directorIsInt() throws SQLException {
         ColumnType column = info.getTypes().findByColumn("movies", "id_director");
