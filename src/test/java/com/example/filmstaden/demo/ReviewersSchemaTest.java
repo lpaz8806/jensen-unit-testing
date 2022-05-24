@@ -1,5 +1,9 @@
-package com.example.demo;
+package com.example.filmstaden.demo;
 
+import com.example.demo.Column;
+import com.example.demo.ColumnType;
+import com.example.demo.ColumnsList;
+import com.example.demo.SchemaInformation;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +16,7 @@ public class ReviewersSchemaTest{
     @Test
     public void tableHasPrimaryKey() throws SQLException {
         ColumnsList columns = info.getPrimaryKeys().filterByTableName("reviewers");
-        Assertions.assertEquals(columns.count(), 1);
+        Assertions.assertEquals(1, columns.count());
     }
     @Test
     public void primaryKeyIsCalledId() throws SQLException {
@@ -24,7 +28,7 @@ public class ReviewersSchemaTest{
     public void nameIsString() throws SQLException {
         ColumnType column = info.getTypes().findByColumn("reviewers", "name");
         Assertions.assertNotNull(column);
-        Assertions.assertEquals(column.getType(), "varchar");
+        Assertions.assertEquals("varchar", column.getType());
     }
 
     @Test

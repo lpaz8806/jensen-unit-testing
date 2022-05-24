@@ -9,13 +9,11 @@ import static java.lang.Integer.parseInt;
 
 public class SchemaInformation {
     private Connection db;
-    private String dbName;
+    private String dbName = null;
 
     public SchemaInformation() {
         try {
             Config config = Config.getInstance();
-            dbName = config.get("DB_NAME");
-            System.out.println("db name = " + dbName);
             db = DriverManager.getConnection(
                     config.get("DB_CONNECTION"),
                     config.get("DB_USER"),
@@ -27,7 +25,25 @@ public class SchemaInformation {
             System.out.println(e);
         }
     }
-
+    public SchemaInformation(Connection db) {
+        this.db = db;
+    }
+    public String getDbName() {
+        if (dbName == null) {
+            dbName = fetchDbName();
+        }
+        return dbName;
+    }
+    private String fetchDbName() {
+        try {
+            ResultSet rs = executeQuery("SELECT DATABASE() as `db` FROM DUAL");
+            rs.next();
+            return rs.getString("db");
+        }
+        catch (Exception e) {
+            return null;
+        }
+    }
     public void close() {
         try {
             db.close();
@@ -37,7 +53,7 @@ public class SchemaInformation {
     }
 
     public ColumnsList getPrimaryKeys() throws SQLException {
-        ResultSet rs = executeQuery("SELECT * FROM %s_pk", dbName);
+        ResultSet rs = executeQuery("SELECT * FROM %s_pk", getDbName());
         List<Column> list = new ArrayList<>();
         while(rs.next()) {
             Column current = new Column(
@@ -50,7 +66,7 @@ public class SchemaInformation {
     }
 
     public ForeignKeysList getForeignKeys() throws SQLException {
-        ResultSet rs = executeQuery("select * from %s_fk", dbName);
+        ResultSet rs = executeQuery("select * from %s_fk", getDbName());
         List<ForeignKey> list = new ArrayList<>();
         while(rs.next()) {
             ForeignKey current = new ForeignKey(
@@ -70,7 +86,7 @@ public class SchemaInformation {
     }
 
     public ColumnsTypesList getTypes() throws SQLException {
-        ResultSet rs = executeQuery("select * from %s_types", dbName);
+        ResultSet rs = executeQuery("select * from %s_types", getDbName());
         List<ColumnType> list = new ArrayList<>();
         while(rs.next()) {
             ColumnType current = new ColumnType(
