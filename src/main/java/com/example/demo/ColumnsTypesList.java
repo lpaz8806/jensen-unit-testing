@@ -13,12 +13,11 @@ public class ColumnsTypesList {
         return findByColumn(new Column(table, column));
     }
     public ColumnType findByColumn(Column column) {
-
         Optional<ColumnType> foundColumn = types.stream()
                 .filter(c -> c.getColumn().equals(column))
                 .findFirst();
 
-        return null;
+        return foundColumn.isPresent() ? foundColumn.get() : null;
     }
 
     @Override
