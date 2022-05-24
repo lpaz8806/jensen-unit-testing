@@ -52,4 +52,4 @@ public class JobsSchemaTest extends TableTestBase {
         Assertions.assertNotNull(column);
         Assertions.assertEquals("int", column.getType());
     }
-}
+
