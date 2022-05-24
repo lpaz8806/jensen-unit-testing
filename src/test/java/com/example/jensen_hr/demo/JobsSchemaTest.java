@@ -40,16 +40,18 @@ public class JobsSchemaTest extends TableTestBase {
         Assertions.assertNotNull(column);
         Assertions.assertEquals(60, column.getMaxLength());
     }
+
     @Test
     public void minSalaryIsInt() throws SQLException {
         ColumnType column = info.getTypes().findByColumn("jobs", "min_salary");
         Assertions.assertNotNull(column);
         Assertions.assertEquals("int", column.getType());
     }
+
     @Test
     public void maxSalaryIsInt() throws SQLException {
         ColumnType column = info.getTypes().findByColumn("jobs", "max_salary");
         Assertions.assertNotNull(column);
         Assertions.assertEquals("int", column.getType());
     }
-
+}
