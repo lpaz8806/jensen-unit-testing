@@ -2,6 +2,8 @@ package com.example.demo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class ForeignKeysList {
     private List<ForeignKey> foreignKeys;
@@ -13,31 +15,26 @@ public class ForeignKeysList {
     public int count() { return foreignKeys.size(); }
 
     public ForeignKeysList filterByChildTable(String tableName) {
-        List<ForeignKey> list = new ArrayList<>();
-        for (ForeignKey foreignKey: foreignKeys) {
-            if (foreignKey.getChildColumn().getTable().equals(tableName)) {
-                list.add(foreignKey);
-            }
-        }
-        return new ForeignKeysList(list);
+        List<ForeignKey> foundFks = foreignKeys.stream()
+                .filter(fk -> fk.getChildColumn().getTable().equals(tableName))
+                .collect(Collectors.toList());
+
+        return new ForeignKeysList(foundFks);
     }
 
     public ForeignKey findByChildColumn(Column column) {
-        for (ForeignKey foreignKey: foreignKeys) {
-            if (foreignKey.getChildColumn().equals(column)) {
-                return foreignKey;
-            }
-        }
-        return null;
+        Optional<ForeignKey> foundFk = foreignKeys.stream()
+                .filter(fk -> fk.getChildColumn().equals(column))
+                .findFirst();
+
+        return foundFk.isPresent() ? foundFk.get() : null;
     }
     public ForeignKeysList filterByParentTable(String tableName) {
-        List<ForeignKey> list = new ArrayList<>();
-        for (ForeignKey foreignKey: foreignKeys) {
-            if (foreignKey.getParentColumn().getTable().equals(tableName)) {
-                list.add(foreignKey);
-            }
-        }
-        return new ForeignKeysList(list);
+        List<ForeignKey> foundFks = foreignKeys.stream()
+                .filter(fk -> fk.getParentColumn().getTable().equals(tableName))
+                .collect(Collectors.toList());
+
+        return new ForeignKeysList(foundFks);
     }
     @Override
     public String toString() {
