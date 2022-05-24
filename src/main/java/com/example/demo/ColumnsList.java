@@ -2,6 +2,7 @@ package com.example.demo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ColumnsList {
     private List<Column> columns;
@@ -13,15 +14,11 @@ public class ColumnsList {
     public int count() { return columns.size(); }
 
     public ColumnsList filterByTableName(String tableName) {
-        List<Column> list = new ArrayList<>();
-        for (Column column : this.columns)
-        {
-            if (tableName.equals(column.getTable())) {
-                list.add(column);
-            }
-        }
+        List<Column> foundPks = columns.stream()
+                .filter(pk -> pk.getTable().equals(tableName))
+                .collect(Collectors.toList());
 
-        return new ColumnsList(list);
+        return new ColumnsList(foundPks);
     }
     public ColumnsList filterByColumnName(String columnName) {
         List<Column> list = new ArrayList<>();
