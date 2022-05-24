@@ -20,6 +20,7 @@ public class CountriesSchemaTest extends TableTestBase {
         ColumnsList columns = info.getPrimaryKeys().filterByTableName("countries");
         Assertions.assertEquals(1, columns.count());
     }
+
     @Test
     public void primaryKeyIsCalledId() throws SQLException {
         Column column = info.getPrimaryKeys().find("countries", "id");

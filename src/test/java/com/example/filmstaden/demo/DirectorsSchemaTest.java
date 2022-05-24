@@ -1,16 +1,16 @@
 package com.example.filmstaden.demo;
 
-import com.example.demo.Column;
-import com.example.demo.ColumnType;
-import com.example.demo.ColumnsList;
-import com.example.demo.SchemaInformation;
+import com.example.TableTestBase;
+import com.example.demo.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 
-public class DirectorsSchemaTest {
-    private SchemaInformation info = new SchemaInformation();
+public class DirectorsSchemaTest extends TableTestBase {
+    public DirectorsSchemaTest() throws SQLException {
+        super(Config.getInstance().get("DB_CONNECTION_FILMSTADEN"));
+    }
 
     @Test
     public void tableHasPrimaryKey() throws SQLException {

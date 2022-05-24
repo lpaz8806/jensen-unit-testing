@@ -1,21 +1,24 @@
 package com.example.filmstaden.demo;
 
+import com.example.TableTestBase;
 import com.example.demo.ColumnType;
 import com.example.demo.ColumnsList;
+import com.example.demo.Config;
 import com.example.demo.SchemaInformation;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 
-public class ActorsSchemaTest {
-
-    private SchemaInformation info = new SchemaInformation();
+public class ActorsSchemaTest extends TableTestBase {
+    public ActorsSchemaTest() throws SQLException {
+        super(Config.getInstance().get("DB_CONNECTION_FILMSTADEN"));
+    }
     @Test
     public void nameIsString() throws SQLException {
         ColumnType column = info.getTypes().findByColumn("actors", "first_name");
         Assertions.assertNotNull(column);
-        Assertions.assertEquals(column.getType(), "varchar");
+        Assertions.assertEquals("varchar",column.getType());
     }
 
     @Test
@@ -34,7 +37,7 @@ public class ActorsSchemaTest {
     public void firstNameIsString() throws SQLException {
         ColumnType column = info.getTypes().findByColumn("actors", "first_name");
         Assertions.assertNotNull(column);
-        Assertions.assertEquals(column.getType(), "varchar");
+        Assertions.assertEquals("varchar", column.getType());
     }
 
     @Test

@@ -2,14 +2,17 @@
 
 package com.example.filmstaden.demo;
 
+import com.example.TableTestBase;
 import com.example.demo.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 
-public class MoviesSchemaTest {
-    private SchemaInformation info = new SchemaInformation();
+public class MoviesSchemaTest extends TableTestBase {
+    public MoviesSchemaTest() throws SQLException {
+        super(Config.getInstance().get("DB_CONNECTION_FILMSTADEN"));
+    }
 
     @Test
     public void tableHasPrimaryKey() throws SQLException {
