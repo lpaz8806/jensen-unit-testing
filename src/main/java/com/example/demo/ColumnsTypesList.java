@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import java.util.List;
+import java.util.Optional;
 
 public class ColumnsTypesList {
     private List<ColumnType> types;
@@ -12,11 +13,11 @@ public class ColumnsTypesList {
         return findByColumn(new Column(table, column));
     }
     public ColumnType findByColumn(Column column) {
-        for (ColumnType columnType: types) {
-            if(columnType.getColumn().equals(column)) {
-                return columnType;
-            }
-        }
+
+        Optional<ColumnType> foundColumn = types.stream()
+                .filter(c -> c.getColumn().equals(column))
+                .findFirst();
+
         return null;
     }
 
