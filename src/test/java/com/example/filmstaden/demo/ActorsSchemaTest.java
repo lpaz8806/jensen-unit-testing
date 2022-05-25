@@ -22,7 +22,7 @@ public class ActorsSchemaTest extends TableTestBase {
     }
 
     @Test
-    public void nameIsAtMost40CharactersLong() throws SQLException {
+    public void nameIsAtMost50CharactersLong() throws SQLException {
         ColumnType column = info.getTypes().findByColumn("actors", "first_name");
         Assertions.assertNotNull(column);
         Assertions.assertEquals(50, column.getMaxLength());
